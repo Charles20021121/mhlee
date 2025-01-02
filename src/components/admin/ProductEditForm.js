@@ -26,6 +26,18 @@ export default function ProductEditForm({ product, open, onClose, onSuccess }) {
   const [imagePreviews, setImagePreviews] = useState([])
 
   useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const data = await categoryApi.getAll()
+        if (!data || data.length === 0) {
+          toast.error('No categories found. Please create a category first.')
+        }
+        setCategories(data || [])
+      } catch (error) {
+        console.error('Error loading categories:', error)
+        toast.error('Failed to load categories')
+      }
+    }
     loadCategories()
   }, [])
 
@@ -33,7 +45,7 @@ export default function ProductEditForm({ product, open, onClose, onSuccess }) {
     if (product) {
       setFormData({
         name: product.name || '',
-        description: product.description || '',
+        description: product.description?.replace(/\n/g, '\n') || '',
         category_id: product.category_id || '',
         price: product.price || '',
         features: (product.features || []).join('\n'),
@@ -48,16 +60,6 @@ export default function ProductEditForm({ product, open, onClose, onSuccess }) {
       resetForm()
     }
   }, [product])
-
-  const loadCategories = async () => {
-    try {
-      const data = await categoryApi.getAll()
-      setCategories(data)
-    } catch (error) {
-      console.error('Error loading categories:', error)
-      toast.error('Failed to load categories')
-    }
-  }
 
   const resetForm = () => {
     setFormData({
@@ -136,11 +138,20 @@ export default function ProductEditForm({ product, open, onClose, onSuccess }) {
     setLoading(true)
 
     try {
-      const dataToSubmit = {
+      // 添加表單驗證
+      if (!formData.category_id) {
+        throw new Error('Please select a category')
+      }
+
+      if (!formData.name) {
+        throw new Error('Please enter a product name')
+      }
+
+      const formValues = {
+        categoryId: formData.category_id,
         name: formData.name,
-        description: formData.description,
-        category_id: formData.category_id,
-        price: formData.price ? Number(formData.price) : null,
+        description: formData.description.replace(/\r\n/g, '\n'),
+        price: formData.price ? parseFloat(formData.price) : null,
         features: formData.features.split('\n').filter(Boolean),
         specifications: Object.fromEntries(
           formData.specifications
@@ -152,21 +163,21 @@ export default function ProductEditForm({ product, open, onClose, onSuccess }) {
             })
         ),
         images: formData.images,
-        is_featured: formData.is_featured
+        isFeatured: formData.is_featured
       }
 
       if (product?.id) {
-        await productApi.update(product.id, dataToSubmit)
-        toast.success("Product updated successfully")
+        await productApi.update(product.id, formValues)
       } else {
-        await productApi.create(dataToSubmit)
-        toast.success("Product created successfully")
+        await productApi.create(formValues)
       }
+
+      toast.success(product?.id ? 'Product updated' : 'Product created')
       onSuccess?.()
       onClose()
     } catch (error) {
       console.error('Error saving product:', error)
-      toast.error(error.message || "Failed to save product")
+      toast.error(error.message || 'Failed to save product')
     } finally {
       setLoading(false)
     }
@@ -193,7 +204,7 @@ export default function ProductEditForm({ product, open, onClose, onSuccess }) {
               name="category_id"
               value={formData.category_id}
               onChange={handleChange}
-              className="w-full rounded-md border-gray-300"
+              className="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
               required
             >
               <option value="">Select a category</option>
@@ -259,7 +270,9 @@ export default function ProductEditForm({ product, open, onClose, onSuccess }) {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              rows={4}
+              rows={6}
+              className="resize-y"
+              placeholder="Enter product description..."
             />
           </div>
 

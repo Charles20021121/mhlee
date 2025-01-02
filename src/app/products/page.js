@@ -35,14 +35,16 @@ export default function ProductsPage() {
           className="object-cover opacity-70"
         />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white px-4">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-4">
-              Our Collections
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
-              Discover our range of meticulously crafted iron works, where each piece 
-              tells a story of artisanal excellence.
-            </p>
+          <div className="text-center text-white w-full px-6 sm:px-8 md:px-12 max-w-4xl mx-auto">
+            <div className="bg-black/30 backdrop-blur-sm p-6 sm:p-8 md:p-12 rounded-lg">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-4 sm:mb-6">
+                Our Collections
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl text-gray-200">
+                Discover our range of meticulously crafted iron works, where each piece 
+                tells a story of artisanal excellence.
+              </p>
+            </div>
           </div>
         </div>
       </div>

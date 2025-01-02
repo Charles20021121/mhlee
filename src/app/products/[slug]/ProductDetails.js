@@ -53,7 +53,9 @@ export default function ProductDetails({ product }) {
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold">{product.name}</h1>
-              <p className="mt-2 text-gray-600">{product.description}</p>
+              <p className="text-gray-600 whitespace-pre-line">
+                {product.description}
+              </p>
             </div>
 
             {product.price ? (

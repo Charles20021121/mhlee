@@ -39,12 +39,14 @@ export default async function CategoryPage({ params }) {
         {/* Category Header */}
         <div className="bg-gray-900 text-white">
           <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
-              {category.name}
-            </h1>
-            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl">
-              {category.description}
-            </p>
+            <div className="bg-black/30 backdrop-blur-sm p-6 sm:p-8 rounded-lg max-w-3xl">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+                {category.name}
+              </h1>
+              <p className="text-sm sm:text-base md:text-lg text-gray-300">
+                {category.description}
+              </p>
+            </div>
           </div>
         </div>
 

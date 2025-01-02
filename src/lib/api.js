@@ -136,23 +136,24 @@ export const productApi = {
   // 创建产品
   async create({ categoryId, name, description, features, specifications, images, price, isFeatured }) {
     try {
-      // 先获取分类信息以获取文件夹名称
+      // 首先验证分类是否存在
       const { data: category } = await supabase
         .from('categories')
-        .select('name')
+        .select()
         .eq('id', categoryId)
         .single()
 
-      if (!category) throw new Error('Category not found')
+      if (!category) {
+        throw new Error('Category not found')
+      }
 
       const slug = name.toLowerCase().replace(/\s+/g, '-')
-      let imageUrls = []
       
+      // 处理图片上传
+      let imageUrls = []
       if (images?.length) {
-        // 使用分类名称作为文件夹名
-        const folderName = category.name.toLowerCase().replace(/\s+/g, '-')
         imageUrls = await Promise.all(
-          images.map(image => uploadImage(image, folderName))
+          images.map(image => uploadImage(image, `products/${slug}`))
         )
       }
 
@@ -162,12 +163,12 @@ export const productApi = {
           {
             category_id: categoryId,
             name,
-            slug,
-            description,
+            slug: name.toLowerCase().replace(/\s+/g, '-'),
+            description: description?.trim() || null,
             features,
             specifications,
             images: imageUrls,
-            price,
+            price: price || null,
             is_featured: isFeatured
           }
         ])
@@ -237,7 +238,7 @@ export const productApi = {
       const updates = {
         category_id: categoryId,
         name,
-        description,
+        description: description?.trim() || null,
         features,
         specifications,
         price,

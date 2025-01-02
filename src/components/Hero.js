@@ -61,16 +61,16 @@ export default function Hero() {
       ))}
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-6 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-black/30 backdrop-blur-sm px-12 py-8 rounded-lg"
+          className="bg-black/30 backdrop-blur-sm px-6 sm:px-8 md:px-12 py-6 sm:py-8 rounded-lg w-full max-w-3xl mx-auto"
         >
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-6xl md:text-7xl font-serif font-bold mb-6 text-center bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold mb-4 sm:mb-6 text-center bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent"
           >
             MH Lee Metal Works
           </motion.h1>
@@ -78,7 +78,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl md:text-2xl mb-8 text-center max-w-2xl text-white/90 font-light tracking-wide"
+            className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-center max-w-2xl mx-auto text-white/90 font-light tracking-wide"
           >
             Crafting Architectural Excellence Since 1990
           </motion.p>
@@ -86,18 +86,18 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex gap-6 justify-center"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center"
           >
             <Button 
               size="lg" 
-              className="bg-white text-gray-900 hover:bg-white/90 px-8 font-medium"
+              className="bg-white text-gray-900 hover:bg-white/90 px-8 font-medium w-full sm:w-auto"
             >
               View Collections
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-white bg-black/20 backdrop-blur-sm text-white hover:bg-black/40 px-8 font-medium"
+              className="border-2 border-white bg-black/20 backdrop-blur-sm text-white hover:bg-black/40 px-8 font-medium w-full sm:w-auto"
             >
               Book Consultation
             </Button>
