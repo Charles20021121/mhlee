@@ -27,7 +27,7 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative h-[60vh] bg-black">
+      <div className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] bg-black">
         <Image
           src="https://images.unsplash.com/photo-1600585152220-90363fe7e115"
           alt="Products Hero"
@@ -35,11 +35,11 @@ export default function ProductsPage() {
           className="object-cover opacity-70"
         />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white">
-            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">
+          <div className="text-center text-white px-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-4">
               Our Collections
             </h1>
-            <p className="text-xl text-gray-200 max-w-2xl mx-auto px-4">
+            <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
               Discover our range of meticulously crafted iron works, where each piece 
               tells a story of artisanal excellence.
             </p>
@@ -48,13 +48,13 @@ export default function ProductsPage() {
       </div>
 
       {/* Categories Grid */}
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-7xl mx-auto px-4 py-12 md:py-20">
         {loading ? (
           <div className="flex justify-center items-center min-h-[400px]">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
         ) : categories.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
             {categories.map((category, index) => (
               <motion.div
                 key={category.id}
@@ -63,7 +63,7 @@ export default function ProductsPage() {
                 transition={{ delay: index * 0.1 }}
               >
                 <Link href={`/categories/${category.slug}`}>
-                  <div className="group">
+                  <div className="group h-full">
                     <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
                       {/* 背景图片 */}
                       {category.image_url ? (
@@ -139,8 +139,8 @@ export default function ProductsPage() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-20">
-            <h3 className="text-2xl font-semibold mb-2">No collections found</h3>
+          <div className="text-center py-12">
+            <h3 className="text-xl font-semibold mb-2">No collections found</h3>
             <p className="text-gray-600">Please check back later for our latest collections.</p>
           </div>
         )}

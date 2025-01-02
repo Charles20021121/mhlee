@@ -35,22 +35,26 @@ export default async function CategoryPage({ params }) {
     )
 
     return (
-      <div className="min-h-screen pt-20">
+      <div className="min-h-screen pt-16 md:pt-20">
         {/* Category Header */}
         <div className="bg-gray-900 text-white">
-          <div className="max-w-6xl mx-auto px-4 py-12">
-            <h1 className="text-4xl font-bold mb-4">{category.name}</h1>
-            <p className="text-gray-300 max-w-2xl">{category.description}</p>
+          <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+              {category.name}
+            </h1>
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl">
+              {category.description}
+            </p>
           </div>
         </div>
 
         {/* Products Grid */}
         <div className="max-w-6xl mx-auto px-4 py-8">
           {sortedProducts.length > 0 ? (
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {sortedProducts.map((product) => (
                 <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                  <div className="relative h-64 bg-gray-200">
+                  <div className="relative aspect-square bg-gray-200">
                     {product.images?.[0] && (
                       <Image
                         src={product.images[0]}
@@ -62,13 +66,17 @@ export default async function CategoryPage({ params }) {
                   </div>
                   <div className="p-4">
                     <h3 className="font-semibold text-lg mb-2">{product.name}</h3>
-                    <p className="text-gray-600 mb-4 line-clamp-2">{product.description}</p>
+                    <p className="text-gray-600 mb-4 line-clamp-2 text-sm sm:text-base">
+                      {product.description}
+                    </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-primary font-medium">
+                      <span className="text-primary font-medium text-sm sm:text-base">
                         {product.price ? `$${product.price.toLocaleString()}` : 'Contact for Price'}
                       </span>
                       <Link href={`/products/${product.slug}`}>
-                        <Button>View Details</Button>
+                        <Button size="sm" className="whitespace-nowrap">
+                          View Details
+                        </Button>
                       </Link>
                     </div>
                   </div>
